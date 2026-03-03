@@ -457,7 +457,8 @@ function SWEP:GetTrace(bCacheTrace, desiredPos, desiredAng, NoTrace, closeanim)
 	end
 
 	if IsValid(owner) and owner.IsSuperAdmin and owner:IsSuperAdmin() then
-		--debugoverlay.Sphere(trace.HitPos, 1, SERVER and 5 or 0.1, SERVER and Color(255, 0, 0) or Color(0, 255, 0))
+		-- debugoverlay.Line(pos, pos + ang:Forward() * 1000, 0.1, SERVER and Color(255, 0, 0) or Color(0, 0, 255))
+		-- debugoverlay.Sphere(trace.HitPos, 1, SERVER and 5 or 0.1, SERVER and Color(255, 0, 0) or Color(0, 255, 0))
 	end
 
 	return trace, pos, ang
