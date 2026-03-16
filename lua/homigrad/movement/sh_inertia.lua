@@ -45,8 +45,9 @@ local Angle, Vector, AngleRand, VectorRand, math, hook, util, game = Angle, Vect
 
 	local hg_movement_stamina_debuff = CreateConVar("hg_movement_stamina_debuff", "0.3", {FCVAR_REPLICATED,FCVAR_ARCHIVE,FCVAR_NOTIFY}, "Multiply movement debuff when having low stamina", 0, 1)
 	local hg_inertiamul = CreateConVar("hg_inertiamul", "1", {FCVAR_REPLICATED,FCVAR_ARCHIVE,FCVAR_NOTIFY}, "Multiply inertia for player movement", 0.01, 5)
+	local hg_inertiaenabled = CreateConVar("hg_inertiaenabled", "0", {FCVAR_REPLICATED,FCVAR_ARCHIVE,FCVAR_NOTIFY}, "Enable inertia", 0, 1)
 	local hg_divejump = CreateConVar("hg_divejump", "0", {FCVAR_REPLICATED,FCVAR_ARCHIVE,FCVAR_NOTIFY}, "Toggle dive jumps on crouch jump", 0, 1)
-
+	
 	local vomitVPAng, vecZero = Angle(1, 0, 0), Vector()
 	hook.Add("SetupMove", "HG(StartCommand)", function(ply, mv, cmd)
 		--\\ DeltaTime
@@ -516,8 +517,10 @@ local Angle, Vector, AngleRand, VectorRand, math, hook, util, game = Angle, Vect
 			cmd:SetSideMove(side_move * inertia_len)
 		end
 
-		mv:SetForwardSpeed(forward_move * inertia_len)
-		mv:SetSideSpeed(side_move * inertia_len)
+		if hg_inertiaenabled:GetBool() then
+			mv:SetForwardSpeed(forward_move * inertia_len)
+			mv:SetSideSpeed(side_move * inertia_len)
+		end
 	end)
 --//
 
